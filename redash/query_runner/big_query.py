@@ -306,18 +306,13 @@ class BigQuery(BaseQueryRunner):
         query_base = """
         SELECT table_schema, table_name, field_path
         FROM `{dataset_id}`.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS
-        WHERE table_schema NOT IN ('information_schema')
+        WHERE table_schema NOT IN ('information_schema', 'cx_sheet', 'Address') AND (table_name NOT LIKE 'LeadTime_%')
         """
 
         schema = {}
         queries = []
         for dataset in datasets:
             dataset_id = dataset["datasetReference"]["datasetId"]
-
-            # 추가된 부분: 특정 dataset_id인 경우 스키마를 가져오지 않음
-            print(dataset_id)
-            if dataset_id in ['bigquery-321813.Address', 'bigquery-321813.cx_sheet']:
-                continue
 
             query = query_base.format(dataset_id=dataset_id)
             queries.append(query)
