@@ -291,6 +291,9 @@ class BigQuery(BaseQueryRunner):
             result.extend(datasets.get("datasets", []))
             nextPageToken = datasets.get("nextPageToken", None)
 
+        # 추가된 부분: 특정 dataset_id인 경우 결과에 추가하지 않음
+        result = [dataset for dataset in result if dataset["datasetReference"]["datasetId"] not in ['bigquery-321813.Address', 'bigquery-321813.cx_sheet']]
+
         return result
 
     def get_schema(self, get_stats=False):
