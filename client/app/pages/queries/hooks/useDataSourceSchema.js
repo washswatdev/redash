@@ -28,6 +28,7 @@ export default function useDataSourceSchema(dataSource) {
       getSchema(dataSource, refresh)
         .then(data => {
           if (refreshSchemaTokenRef.current === refreshToken) {
+            console.log('data', JSON.stringify(data))
             setSchema(data);
           }
         })
