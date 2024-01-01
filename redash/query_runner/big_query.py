@@ -310,6 +310,11 @@ class BigQuery(BaseQueryRunner):
         queries = []
         for dataset in datasets:
             dataset_id = dataset["datasetReference"]["datasetId"]
+
+            # 추가된 부분: 특정 dataset_id인 경우 스키마를 가져오지 않음
+            if dataset_id in ['bigquery-321813.Address', 'bigquery-321813.cx_sheet']:
+                continue
+
             query = query_base.format(dataset_id=dataset_id)
             queries.append(query)
 
