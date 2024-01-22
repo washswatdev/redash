@@ -260,6 +260,17 @@ class BaseQueryRunner(object):
 
     # def apply_auto_limit(self, query_text, should_apply_auto_limit):
     #     return query_text
+    def query_is_select_no_limit(self, query):
+        parsed_query = sqlparse.parse(query)[0]
+        last_keyword_idx = find_last_keyword_idx(parsed_query)
+        # Either invalid query or query that is not select
+        if last_keyword_idx == -1 or parsed_query.tokens[0].value.upper() != "SELECT":
+            return False
+
+        no_limit = parsed_query.tokens[last_keyword_idx].value.upper() not in self.limit_keywords
+
+        return no_limit
+
     def add_limit_to_query(self, query):
         parsed_query = sqlparse.parse(query)[0]
         limit_tokens = sqlparse.parse(self.limit_query)[0].tokens
