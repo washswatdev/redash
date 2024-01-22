@@ -89,17 +89,17 @@ function VisualizationEmbedFooter({
           <FileOutlinedIcon /> Download as TSV File
         </QueryResultsLink>
       </Menu.Item>
-      <Menu.Item>
-        <QueryResultsLink
-          fileType="xlsx"
-          query={query}
-          queryResult={queryResults}
-          apiKey={apiKey}
-          disabled={!queryResults || !queryResults.getData || !queryResults.getData()}
-          embed>
-          <FileExcelOutlinedIcon /> Download as Excel File
-        </QueryResultsLink>
-      </Menu.Item>
+      {/*<Menu.Item>*/}
+      {/*  <QueryResultsLink*/}
+      {/*    fileType="xlsx"*/}
+      {/*    query={query}*/}
+      {/*    queryResult={queryResults}*/}
+      {/*    apiKey={apiKey}*/}
+      {/*    disabled={!queryResults || !queryResults.getData || !queryResults.getData()}*/}
+      {/*    embed>*/}
+      {/*    <FileExcelOutlinedIcon /> Download as Excel File*/}
+      {/*  </QueryResultsLink>*/}
+      {/*</Menu.Item>*/}
     </Menu>
   );
 

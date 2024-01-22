@@ -49,15 +49,15 @@ function visualizationWidgetMenuOptions({ widget, canEditDashboard, onParameters
         "Download as TSV File"
       )}
     </Menu.Item>,
-    <Menu.Item key="download_excel" disabled={isQueryResultEmpty}>
-      {!isQueryResultEmpty ? (
-        <Link href={downloadLink("xlsx")} download={downloadName("xlsx")} target="_self">
-          Download as Excel File
-        </Link>
-      ) : (
-        "Download as Excel File"
-      )}
-    </Menu.Item>,
+    // <Menu.Item key="download_excel" disabled={isQueryResultEmpty}>
+    //   {!isQueryResultEmpty ? (
+    //     <Link href={downloadLink("xlsx")} download={downloadName("xlsx")} target="_self">
+    //       Download as Excel File
+    //     </Link>
+    //   ) : (
+    //     "Download as Excel File"
+    //   )}
+    // </Menu.Item>,
     (canViewQuery || canEditParameters) && <Menu.Divider key="divider" />,
     canViewQuery && (
       <Menu.Item key="view_query">
