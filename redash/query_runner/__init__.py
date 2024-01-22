@@ -256,7 +256,7 @@ class BaseQueryRunner(object):
 
     @property
     def supports_auto_limit(self):
-        return False
+        return True
 
     def apply_auto_limit(self, query_text, should_apply_auto_limit):
         return query_text
