@@ -258,8 +258,26 @@ class BaseQueryRunner(object):
     def supports_auto_limit(self):
         return True
 
+    # def apply_auto_limit(self, query_text, should_apply_auto_limit):
+    #     return query_text
+    def add_limit_to_query(self, query):
+        parsed_query = sqlparse.parse(query)[0]
+        limit_tokens = sqlparse.parse(self.limit_query)[0].tokens
+        length = len(parsed_query.tokens)
+        if parsed_query.tokens[length - 1].ttype == sqlparse.tokens.Punctuation:
+            parsed_query.tokens[length - 1 : length - 1] = limit_tokens
+        else:
+            parsed_query.tokens += limit_tokens
+        return str(parsed_query)
+
     def apply_auto_limit(self, query_text, should_apply_auto_limit):
-        return query_text
+        queries = split_sql_statements(query_text)
+        if should_apply_auto_limit:
+            # we only check for last one in the list because it is the one that we show result
+            last_query = queries[-1]
+            if self.query_is_select_no_limit(last_query):
+                queries[-1] = self.add_limit_to_query(last_query)
+        return combine_sql_statements(queries)
 
     def gen_query_hash(self, query_text, set_auto_limit=False):
         query_text = self.apply_auto_limit(query_text, set_auto_limit)
